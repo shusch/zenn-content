@@ -1,0 +1,13 @@
+{
+  "name": "zenn-content",
+  "version": "1.0.0",
+  "description": "Zenn content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "dependencies": {
+    "zenn-cli": "^0.1.150"
+  }
+}
