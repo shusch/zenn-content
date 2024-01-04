@@ -11,7 +11,7 @@ published: true
 日付の表記方法は世界中で多くのパターンがあります。
 地域などで日と月の順序が異なることもあり混乱の原因であるため、統一的な表記形式として ISO 8601 (RFC 3339) というものが存在します。
 
-JavaScript ではこのISO 8601形式の文字列を返すために、 `toISOString()` というメソッドがあります。
+JavaScript ではこのISO 8601形式の文字列を返すために、 `toISOString()` というメソッド[^1]があります。
 ただしこれは常にUTC 協定世界時の時刻を返すため、タイムゾーンを保持したまま扱いたい場合には使い勝手が悪いです。
 
 ```js
@@ -94,3 +94,5 @@ const date = new Date(dateStr);
 console.log(date);
 // Sat Jan 20 2024 15:04:05 GMT+0900 (日本標準時)
 ```
+
+[^1]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
