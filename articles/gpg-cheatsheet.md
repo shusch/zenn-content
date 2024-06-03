@@ -200,7 +200,7 @@ gpg> save
 1. 主鍵・副鍵の秘密鍵をエクスポートする
 
    ```
-   gpg --export-secret-keys <KeyID> -a -o secret-all.key
+   gpg -a -o secret-all.key --export-secret-keys <KeyID>
    ```
 
 1. 秘密鍵ファイルと失効証明書をバックアップする
@@ -244,14 +244,14 @@ shred -u <fingerprint>.rev
 ### 秘密鍵のエクスポート
 
 ```
-gpg --export-secret-keys <keyid|fingerprint|email|name> -a -o secret-all.key
+gpg -a -o secret-all.key --export-secret-keys <keyid|fingerprint|email|name>
 ```
 
 この方法では主鍵・副鍵の両方の秘密鍵がエクスポートされる。
 副鍵の秘密鍵のみをエクスポートしたい場合は、以下のコマンドを実行する。
 
 ```
-gpg --export-secret-subkeys <keyid|fingerprint|email|name> -a -o secret-sub.key
+gpg -a -o secret-sub.key --export-secret-subkeys <keyid|fingerprint|email|name>
 ```
 
 ### 公開鍵のエクスポート
@@ -260,7 +260,7 @@ gpg --export-secret-subkeys <keyid|fingerprint|email|name> -a -o secret-sub.key
 KeyID などを指定しない場合、すべての公開鍵をエクスポートする。
 
 ```
-gpg --export -a -o public.key
+gpg -a -o public.key --export
 ```
 
 ### 鍵のインポート
@@ -278,6 +278,8 @@ gpg --import public.key
 
 自分で作成した鍵は究極的に信用できるため、 `ultimate (5)` で信用度を設定する。
 
+[信用度の設定方法](#鍵の信用度を変更する)
+
 ## 鍵の失効
 
 秘密鍵が漏洩した場合はただちに失効させる必要がある。
@@ -289,7 +291,7 @@ gpg --import public.key
 `--gen-revoke` で作った場合は失効理由も含めることができる。
 
 ```
-gpg --gen-revoke <KeyID> -o <fingerprint>.rev
+gpg -o <fingerprint>.rev --gen-revoke <KeyID>
 ```
 
 ### 主鍵の失効
