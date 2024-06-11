@@ -1,5 +1,5 @@
 ---
-title: "tarコマンドの基本と、SSHを介した便利な使い方"
+title: "イマドキなtarコマンドの基本と、SSHを介した便利な使い方"
 emoji: "🔰"
 type: "tech"
 topics: ["linux", "shell", "ssh", "cli", "linuxコマンド"]
@@ -177,23 +177,33 @@ Zipでは当たり前のようにフォルダを圧縮できますが、gzipの�
 
 ```sh
 # gzip圧縮を行う
-tar -czvf /save/path/hoge.tar.gz fuga
+tar -czvf /save/path/hoge.tar.gz dir_name
 
 # アーカイブのみ
-tar -cvf /save/path/hoge.tar fuga
+tar -cvf /save/path/hoge.tar dir_name
+
+# bzip2 (.tar.bz2) で圧縮する
+tar -cjvf /save/path/hoge.tar.bz2 dir_name
+
+# xz (.tar.xz) で圧縮する
+tar -cJvf /save/path/hoge.tar.xz dir_name
 ```
 
 `-C` オプションを使い、直下以外のディレクトリを圧縮する
 
 ```sh
-tar -C /path/to -czvf /save/path/hoge.tar.gz fuga
+tar -C /path/to -czvf /save/path/hoge.tar.gz dir_name
 ```
 
 :::details -C オプションの順序
 下記でも同じ動作になりますが、`-C` オプションでのパスと、アーカイブするディレクトリ名の間の半角スペースの入れ間違いを防止するため、`-C` オプションを前に書くことをおすすめします
 
 ```sh
-tar -czvf /save/path/hoge.tar.gz -C /path/to fuga
+tar -czvf /save/path/hoge.tar.gz -C /path/to dir_name
+
+# tab補完で無意識にこうしてしまうのを防止
+tar -czvf /save/path/hoge.tar.gz -C /path/to/dir_name
+#                                           ^ / で補完してしまっている
 ```
 :::
 
@@ -219,6 +229,19 @@ tar -C /path/to -xvf /path/hoge.tar.gz
 ```sh
 tar -tf /path/to/hoge.tar.gz
 ```
+
+### 展開時にディレクトリを作らない方法
+
+これまで説明してきたように、基本的にtarでの圧縮対象はディレクトリそのもの（末尾スラッシュを付けない）とするため、展開時には圧縮したディレクトリが作成されることになります。
+
+これをせず直下にファイルを配置したい場合、オプションを指定することで実現可能です。
+
+```sh
+tar -xvf hoge.tar.gz --strip-components 1
+```
+
+`--strip-components` オプションでは、展開後のディレクトリを指定した階層分だけ切り捨てることができます。
+ここでは1階層を切り捨てることで、直下にファイルを展開させています。
 
 ### オプションの補足
 
